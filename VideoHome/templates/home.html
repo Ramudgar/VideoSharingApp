@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+    <div class="container-sm-fluid">
+      <div class="container-sm-fluid card bg-light text-white">
+        <iframe width="100%" height="315" src="https://www.youtube.com/embed/J0NX6pHkkYo?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        
+      </div>
+    </div>
+
+    <div class="container-sm-fluid bg-dark">
+      <div class="container ms-5 d-flex col-sm flex-wrap">
+
+        {% for video in all_videos %}
+        <div class="col-sm mt-5 mb-5 me-4 ">
+
+          <a href="{% url 'watch_video' video.id %}" style="text-decoration: none;">
+            <img src="{% static video.thumbnail.url %}" style="width:18rem; height:20rem">
+          </a>
+          <a href="{% url 'watch_video' video.id %}" style="text-decoration: none;">
+            <h6 class="mt-2">{{video.title}}</h6>  
+          </a>
+          <span class="text text-white">{{video.video_views.all.count}} views • {{video.pub_date}}</span>
+
+        </div>
+        {% endfor %}
+
+      </div>
+
+    </div>
+
+
+{% endblock %}    

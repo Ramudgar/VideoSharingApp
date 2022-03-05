@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+    <!--Signup Modal-->
+    <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Sign Up</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="{% url 'signup' %}" method="post">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="fname" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="fname" name="fname">
+              </div>
+              <div class="mb-3">
+                <label for="lname" class="form-label">User Name</label>
+                <input type="text" class="form-control" id="lname" name="lname">
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" name="mail" aria-describedby="emailHelp">
+              </div>
+              <div class="mb-3">
+                <label for="country" class="form-label">Country</label>
+                <input type="text" class="form-control" id="country" name="country">
+              </div>
+
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control" name="pwd" id="exampleInputPassword1">
+              </div>
+               <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Login Modal-->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="{% url 'login' %}" method="post">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">User Name</label>
+                <input type="text" class="form-control" name="uname" id="exampleInputEmail1" aria-describedby="emailHelp">
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control" name="pwd" id="exampleInputPassword1">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <a href="{% url 'password_reset' %}"><i>Forgot Password?</i></a>
+                <!-- <button  href="{% url 'password_reset' %}" class="btn btn-danger">Forget Password</button> -->
+              </div>
+              
+
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!--Welcome Content-->
+    <div class="container-sm-fluid my-2">
+      <iframe width="100%" height="315" src="https://www.youtube.com/embed/OUKGsb8CpF8?start=7" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; " allowfullscreen></iframe>
+      <!-- <div class="card bg-success text-white" style="height: 400px;">
+        <img src="{% static 'img/bg.jpg' %}" class="card-img" style="height: 400px;" alt="...">
+
+      </div> -->
+    </div>
+    <div class="container-sm-fluid bg-dark">
+      <div class="container ms-5 d-flex col-sm flex-wrap">
+
+        {% for video in videos %}
+        <div class="col-sm mt-5 mb-5 me-4 ">
+
+          <img class="text-center" src="{% static video.thumbnail.url %}" style="width:18rem; height:20rem" alt="image">
+          <a href="{% url 'watch_video' video.id %}" style="text-decoration: none;">
+            <h5 class="card-title mt-2">{{video.title}}</h5>
+          </a>
+          <p class="card-text text-white">{{video.desc}}</p>
+              <p class="card-text"><small class="text text-white ">{{video.pub_date}}</small></p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+   {% endblock %}
+   
